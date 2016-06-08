@@ -1,0 +1,209 @@
+/*----------------------------------------------------------------------------
+									Lists
+------------------------------------------------------------------------------*/
+ul.regular-list,
+ul.inline-list {
+	list-style: none;
+	text-decoration: none;
+	@include font-smoothing;
+	span {
+		cursor: pointer;
+	}
+}
+
+ul.regular-list {
+	li {
+		background-color: $smoke;
+		width: 110%;
+		transform: translateX(-8%);
+		padding-left: 20px;
+	}
+
+	&#playlist {
+		li {
+			height: 64px;
+			span {
+				display: inline-block;
+				padding-top: 7px;
+				&.audio-title {
+					padding-top: 10px;
+					font-family: $medium;
+
+				}
+				&.audio-artist {
+					font-family: $book;
+					font-weight: lighter;
+				}
+			}
+			.audio-source {
+				visibility: hidden;
+			}
+		}
+	}
+}
+
+ul.inline-list {
+	width: 100%;
+	float: left;
+	display: inline-block;
+	li {
+		display: inline-block;
+		float: left;
+	}
+	&#controls-top {
+		width: 175px;
+		margin-left: 180px;
+		-o-transform: translateX(-40px);
+		-ms-transform: translateX(-40px);
+		-moz-transform: translateX(-40px);
+		-webkit-transform: translateX(-40px);
+		transform: translateX(-40px);
+		height: 0px;
+		li {
+			width: 30px;
+			height: 25px;
+		}
+		
+	}
+}
+
+/*----------------------------------------------------------------------------
+									Icons
+------------------------------------------------------------------------------*/
+span.control-icon {
+	background-size: contain;
+  	display: block;
+  	cursor: pointer;
+	&#minimize {
+		background:url(../img/minimize.svg) no-repeat;
+		height: 18px;
+	}
+	&#close {
+		background:url(../img/close.svg) no-repeat;
+		height: 15px;
+	}
+	&#repeat {
+		background:url(../img/repeat.svg) no-repeat;
+		height: 19px;
+		&.on,
+		&:hover {
+			background:url(../img/repeat-on.svg) no-repeat;
+		}
+	}
+	&#previous {
+		background:url(../img/previous.svg) no-repeat;
+		margin-top: 2px;
+		height: 13px;
+		&.on,
+		&:hover {
+			background:url(../img/previous-on.svg) no-repeat;
+		}
+	}
+	&#play {
+		background:url(../img/play.svg) no-repeat;
+		margin-top: 2px;
+		margin-left: 2px;
+		height: 15px;
+		&.on,
+		&:hover {
+			background:url(../img/play-on.svg) no-repeat;
+		}
+	}
+	&#next {
+		background:url(../img/next.svg) no-repeat;
+		margin-top: 2px;
+		height: 13px;
+		&.on,
+		&:hover {
+			background:url(../img/next-on.svg) no-repeat;
+		}
+	}
+	&#plist {
+		background:url(../img/playlist.svg) no-repeat;
+		height: 18px;
+		&.on,
+		&:hover {
+			background:url(../img/playlist-on.svg) no-repeat;
+		}
+	}
+	&#volume {
+		background:url(../img/volume.svg) no-repeat;
+		height: 18px;
+		&.on,
+		&:hover {
+			background:url(../img/volume-on.svg) no-repeat;
+		}
+	}
+}
+
+#window-controls {
+	width: 80px;
+	position: relative;
+	margin-left: 420px;
+	span {
+		display: inline-block;
+		margin-top: 10px;
+		&#minimize {
+			float: left;
+			width: 40px;
+		}
+		&#close {
+			float: right;
+			width: 40px;
+		}
+	}
+
+}
+
+/*----------------------------------------------------------------------------
+									Sliders
+------------------------------------------------------------------------------*/
+
+input[type='range'] {
+    -webkit-appearance: none !important;
+	margin:0px;
+	padding:0px;
+    background: $primary;
+    height: 3px;
+    outline: none;
+    border-radius: $radius;
+}
+input[type='range']::-ms-fill-lower  {
+	background: lighten($primary, 40%);
+	outline: none;
+}
+input[type='range']::-ms-fill-upper  {
+	background: lighten($primary, 40%);
+	outline: none;
+}
+input[type='range']::-moz-range-track {
+	border:none;
+    background: lighten($primary, 40%);
+    outline: none;
+}
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    background: $primary;
+    height:11px;
+    width:11px;
+	border-radius:100%;
+	border: none;
+	cursor:pointer;
+}
+input[type='range']::-moz-range-thumb {
+    background: $primary;
+    height:11px;
+    width:11px;
+	border-radius:100%;
+	border: none;
+	cursor:pointer;
+}
+input[type='range']::-ms-thumb {
+    -webkit-appearance: none !important;
+    background: $primary;
+    height:11px;
+    width:11px;
+	border-radius:100%;
+	border: none;
+	cursor:pointer;
+}

@@ -1,0 +1,13 @@
+/*===============================================================================
+							PlayJS - HTML5 Music player
+=================================================================================*/
+
+@import 'modules/helpers';
+@import 'modules/mixins';
+@import 'partials/variables';
+@import 'components';
+@import 'main';
+
+body {
+	background-color: $gray;
+}

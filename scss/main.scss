@@ -1,0 +1,139 @@
+/*----------------------------------------------------------------------------
+									Player
+------------------------------------------------------------------------------*/
+#player {
+	width: 510px;
+	position: relative;
+	min-height: 185px;
+	max-height: 505px;
+	background-color: $white;
+	overflow: hidden;
+	border-radius: $radius;
+	color: $gray;
+	&.minify {
+		height: 185px;
+		#playlist {
+			height: 64px;
+			margin-top: 41px;
+			overflow-y: hidden;
+			overflow-x: hidden;
+			li {
+				visibility: hidden;
+				position: absolute;
+				&:hover,
+				&.active-audio {
+					background-color: $primary;
+					color: $white;
+					visibility: visible;
+					position: relative;
+				}
+			}
+		}
+	}
+	#playlist {
+		li {
+			cursor: pointer;
+			&:hover,
+			&.active-audio {
+				background-color: $primary;
+				color: $white;
+				visibility: visible;
+				position: relative;
+			}
+		}
+	}
+
+	&.maxi {
+		#playlist {
+			height: 512px;
+			margin-top: 41px;
+			overflow-y: scroll;
+			overflow-x: hidden;
+			li {
+				visibility: visible;
+				position: relative;
+				&.active-audio {
+					background-color: $primary;
+					color: $white;
+					visibility: visible;
+					position: relative;
+				}
+			}
+		}
+	}
+
+	#player-header {
+		width: 100%;
+		height:40px;
+		position: absolute;
+		background-color: $white;
+		border-bottom: 1px solid $gray-smoke;
+		border-radius: $radius $radius 0 0;
+	}
+
+	#control-board {
+		width: 100%;
+		height:80px;
+		bottom: 0;
+		position: absolute;
+		background-color: $white;
+		border-top: 1px solid $gray-smoke;
+		border-radius:0 0 $radius $radius;
+
+		#range-container {
+			width: 100%;
+			position: relative;
+			height: 30px;
+		}
+
+		#controls-bottom {
+			font-family: $book;
+			@include font-size(13px);
+			width: 100%;
+			-o-transform: translateX(-20px);
+			-ms-transform: translateX(-20px);
+			-moz-transform: translateX(-20px);
+			-webkit-transform: translateX(-20px);
+			transform: translateX(-20px);
+			li {
+				position: relative;
+				&#audio-time {
+					width: 100px;
+				}
+				&#audio-range {
+					width: 220px;
+				}
+				&#volume-range {
+					width: 140px;
+				}
+				span#current-time,
+				span#full-time {
+					width: 50px;
+					display: inline-block;
+					float: left;
+				}
+				span#volume  {
+					width: 15px;
+					float: left;
+					display: inline-block;
+				}
+				#volumeslider {
+					width: 100px;
+					float: right;
+					display: inline-block;
+					-o-transform: translateY(4px);
+					-ms-transform: translateY(4px);
+					-moz-transform: translateY(4px);
+					-webkit-transform: translateY(4px);
+				}
+				#seekslider {
+					width: 88%;
+					-o-transform: translateY(-3px);
+					-ms-transform: translateY(-3px);
+					-moz-transform: translateY(-3px);
+					-webkit-transform: translateY(-3px);
+				}
+			}
+		}
+	}
+}

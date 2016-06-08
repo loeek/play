@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Demo</title>
+	<link rel="stylesheet" href="css/application.css"> <!-- Resource style -->
+</head>
+<body>
+	<div class="maxi" id="player">	
+		<div id="player-header">
+			<div id="window-controls">
+				<span class="control-icon" id="minimize"></span>
+				<span class="control-icon" id="close"></span>
+			</div>
+		</div>
+		<ul class="regular-list" id="playlist">
+			<li>
+				<span class="audio-title">All We Got(feat. Kanye West & Chicago Children's Choir) </span></br>
+				<span class="audio-artist">Chance The Rapper</span>
+				<span class="audio-source">All We Got (feat. Kanye West & Chicago Children's Choir) Chance The Rapper.mp3</span>
+			</li>
+			<li class= "active-audio">
+				<span class="audio-title">Blessings</span></br>
+				<span class="audio-artist">Chance The Rapper</span>
+				<span class="audio-source">Blessings Chance The Rapper.mp3</span>
+			</li>
+			<li>
+				<span class="audio-title">Finish Line  Drown (feat. T-Pain, Kirk ...</span></br>
+				<span class="audio-artist">Chance The Rapper</span>
+				<span class="audio-source">Finish Line  Drown (feat. T-Pain, Kirk Franklin, Eryn Allen Kane & Noname).mp3</span>
+			</li>
+			<li>
+				<span class="audio-title">How Great (feat. Jay Electronica & My cousin Nicole)</span></br>
+				<span class="audio-artist">Chance The Rapper</span>
+				<span class="audio-source">How Great (feat. Jay Electronica & My cousin Nicole) Chance The Rapper.mp3</span>
+			</li>
+			<li>
+				<span class="audio-title">No Problem (feat. Lil Wayne & 2 Chainz)</span></br>
+				<span class="audio-artist">Chance The Rapper</span>
+				<span class="audio-source">No Problem (feat. Lil Wayne & 2 Chainz) Chance The Rapper.mp3</span>
+			</li>
+			<li>
+				<span class="audio-title">Same Drugs</span></br>
+				<span class="audio-artist">Chance The Rapper</span>
+				<span class="audio-source">Same Drugs Chance The Rapper.mp3</span>
+			</li>
+		</ul>
+		<div id="control-board">
+			<ul class="inline-list" id="controls-top">
+				<li><span class="control-icon" id="repeat"></span></li>
+				<li><span class="control-icon" id="previous"></span></li>
+				<li><span class="control-icon" id="play"></span></li>
+				<li><span class="control-icon" id="next"></span></li>
+				<li><span class="control-icon" id="plist"></span></li>
+			</ul>
+			<ul class="inline-list" id="controls-bottom">
+				<li id="audio-time">
+					<span id="current-time">02:55 /</span>
+					<span id="full-time">04:40</span>
+				</li>
+				<li id="audio-range">
+					<input id="seekslider" type="range" min="0" max="100" value="0" step="1">
+				</li>
+				<li id="volume-range">
+					<span class="control-icon" id="volume"></span>
+					<input id="volumeslider" type="range" min="0" max="100" value="40" step="1">
+				</li>
+			</ul>
+		</div>
+	</div>
+	<script src="js/play.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
