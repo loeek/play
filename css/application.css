@@ -87,36 +87,40 @@ span.control-icon {
   span.control-icon#repeat {
     background: url(../img/repeat.svg) no-repeat;
     height: 19px; }
-    span.control-icon#repeat.on, span.control-icon#repeat:hover {
+    span.control-icon#repeat.active, span.control-icon#repeat:hover {
       background: url(../img/repeat-on.svg) no-repeat; }
   span.control-icon#previous {
     background: url(../img/previous.svg) no-repeat;
     margin-top: 2px;
     height: 13px; }
-    span.control-icon#previous.on, span.control-icon#previous:hover {
+    span.control-icon#previous:hover {
       background: url(../img/previous-on.svg) no-repeat; }
   span.control-icon#play {
     background: url(../img/play.svg) no-repeat;
     margin-top: 2px;
     margin-left: 2px;
     height: 15px; }
-    span.control-icon#play.on, span.control-icon#play:hover {
+    span.control-icon#play.active {
+      background: url(../img/pause.svg) no-repeat; }
+      span.control-icon#play.active:hover {
+        background: url(../img/pause-on.svg) no-repeat; }
+    span.control-icon#play:hover {
       background: url(../img/play-on.svg) no-repeat; }
   span.control-icon#next {
     background: url(../img/next.svg) no-repeat;
     margin-top: 2px;
     height: 13px; }
-    span.control-icon#next.on, span.control-icon#next:hover {
+    span.control-icon#next:hover {
       background: url(../img/next-on.svg) no-repeat; }
   span.control-icon#plist {
     background: url(../img/playlist.svg) no-repeat;
     height: 18px; }
-    span.control-icon#plist.on, span.control-icon#plist:hover {
+    span.control-icon#plist.active, span.control-icon#plist:hover {
       background: url(../img/playlist-on.svg) no-repeat; }
   span.control-icon#volume {
     background: url(../img/volume.svg) no-repeat;
     height: 18px; }
-    span.control-icon#volume.on, span.control-icon#volume:hover {
+    span.control-icon#volume.active, span.control-icon#volume:hover {
       background: url(../img/volume-on.svg) no-repeat; }
 
 #window-controls {

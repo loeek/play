@@ -185,43 +185,55 @@ var frame = (function(){
 	function listen() {
 		playBtn.addEventListener('click', function () {
 			events.emit("playToggled");
+			toggleActivity (this);
 		}, false);
 
 		prevBtn.addEventListener('click', function () {
 			events.emit("prevPressed");
+			toggleActivity (this);
 		}, false);
 
 		nextBtn.addEventListener('click', function () {
 			events.emit("nextPressed");
+			toggleActivity (this);
 		}, false);
 
 		repeatBtn.addEventListener('click', function () {
 			events.emit("repeatToggled");
+			toggleActivity (this);
 		}, false);
 
 		listBtn.addEventListener('click', function () {
 			events.emit("ListViewToggled");
+			toggleActivity (this);
 		}, false);
 
 		muteBtn.addEventListener('click', function () {
 			events.emit("muteToggled");
+			toggleActivity (this);
 		}, false);
 
 		closeBtn.addEventListener('click', function () {
 			events.emit("closePressed");
+			toggleActivity (this);
 		}, false);
 
 		miniBtn.addEventListener('click', function () {
 			events.emit("miniPressed");
+			toggleActivity (this);
 		}, false);
 	}
 
 	events.on("domRender", initFrame);
 	events.on("ListViewToggled", toggleViewMode);
 	// view elements
+	// toggle View Mode
 	function toggleViewMode() {
-		frame.className = (frame.className == 'minify') ? frame.className.replace('minify', "maxi") : frame.className.replace('maxi', "minify");
-		console.log(frame.className);
+		frame.className = (frame.className == 'minify') ? frame.className.replace("minify", "maxi") : frame.className.replace("maxi", "minify");
+	}
+	function toggleActivity (el) {
+	 	el.className = (el.className == "control-icon active") ? el.className.replace("active", " ") : el.className + " active";
+	 	console.log(el.className);
 	}
 
 

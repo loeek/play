@@ -84,7 +84,7 @@ span.control-icon {
 	&#repeat {
 		background:url(../img/repeat.svg) no-repeat;
 		height: 19px;
-		&.on,
+		&.active,
 		&:hover {
 			background:url(../img/repeat-on.svg) no-repeat;
 		}
@@ -93,7 +93,6 @@ span.control-icon {
 		background:url(../img/previous.svg) no-repeat;
 		margin-top: 2px;
 		height: 13px;
-		&.on,
 		&:hover {
 			background:url(../img/previous-on.svg) no-repeat;
 		}
@@ -103,7 +102,12 @@ span.control-icon {
 		margin-top: 2px;
 		margin-left: 2px;
 		height: 15px;
-		&.on,
+		&.active{
+			background:url(../img/pause.svg) no-repeat;
+			&:hover {
+				background:url(../img/pause-on.svg) no-repeat;
+			}
+		}
 		&:hover {
 			background:url(../img/play-on.svg) no-repeat;
 		}
@@ -112,7 +116,6 @@ span.control-icon {
 		background:url(../img/next.svg) no-repeat;
 		margin-top: 2px;
 		height: 13px;
-		&.on,
 		&:hover {
 			background:url(../img/next-on.svg) no-repeat;
 		}
@@ -120,7 +123,7 @@ span.control-icon {
 	&#plist {
 		background:url(../img/playlist.svg) no-repeat;
 		height: 18px;
-		&.on,
+		&.active,
 		&:hover {
 			background:url(../img/playlist-on.svg) no-repeat;
 		}
@@ -128,7 +131,7 @@ span.control-icon {
 	&#volume {
 		background:url(../img/volume.svg) no-repeat;
 		height: 18px;
-		&.on,
+		&.active,
 		&:hover {
 			background:url(../img/volume-on.svg) no-repeat;
 		}
