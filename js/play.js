@@ -162,6 +162,7 @@ var frame = (function(){
 	var playlist,members,board,controls,playBtn,prevBtn,nextBtn,repeatBtn,listBtn,mutBtn,seekSlider,volumeSlider,curtimeText,durtimeText;
 
 	function initFrame() {
+		frame = document.getElementById("player"),
 		playlist = document.getElementById("playlist"),
 		members = playlist.getElementsByTagName("li"),
 		board = document.getElementById("playlist"),
@@ -176,10 +177,12 @@ var frame = (function(){
 		volumeSlider = document.getElementById("volumeslider"),
 		curtimeText = document.getElementById("current-time"),
 		durtimeText = document.getElementById("full-time");
+		closeBtn = document.getElementById("close");
+		miniBtn = document.getElementById("minimize");
 		listen();
 	}
 	
-	function listen(argument) {
+	function listen() {
 		playBtn.addEventListener('click', function () {
 			events.emit("playToggled");
 		}, false);
@@ -203,8 +206,23 @@ var frame = (function(){
 		muteBtn.addEventListener('click', function () {
 			events.emit("muteToggled");
 		}, false);
+
+		closeBtn.addEventListener('click', function () {
+			events.emit("closePressed");
+		}, false);
+
+		miniBtn.addEventListener('click', function () {
+			events.emit("miniPressed");
+		}, false);
 	}
 
 	events.on("domRender", initFrame);
+	events.on("ListViewToggled", toggleViewMode);
+	// view elements
+	function toggleViewMode() {
+		frame.className = (frame.className == 'minify') ? frame.className.replace('minify', "maxi") : frame.className.replace('maxi', "minify");
+		console.log(frame.className);
+	}
+
 
 })();

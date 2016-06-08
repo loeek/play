@@ -195,7 +195,7 @@ input[type='range']::-ms-thumb {
   background-color: #FFFFFF;
   overflow: hidden;
   border-radius: 2px;
-  color: #3B3B3F; }
+  color: #606067; }
   #player.minify {
     height: 185px; }
     #player.minify #playlist {
@@ -206,11 +206,6 @@ input[type='range']::-ms-thumb {
       #player.minify #playlist li {
         visibility: hidden;
         position: absolute; }
-        #player.minify #playlist li:hover, #player.minify #playlist li.active-audio {
-          background-color: #5483C3;
-          color: #FFFFFF;
-          visibility: visible;
-          position: relative; }
   #player #playlist li {
     cursor: pointer; }
     #player #playlist li:hover, #player #playlist li.active-audio {
@@ -218,6 +213,17 @@ input[type='range']::-ms-thumb {
       color: #FFFFFF;
       visibility: visible;
       position: relative; }
+    #player #playlist li.disabled-audio, #player #playlist li.disabled-audio:hover {
+      background-color: #e4e4e4 !important;
+      color: #86868e !important;
+      cursor: not-allowed; }
+    #player #playlist li .audio-flag {
+      position: absolute;
+      top: 17px;
+      right: 40px;
+      height: 30px;
+      width: 30px;
+      background: url(../img/repeat.svg) no-repeat; }
   #player.maxi #playlist {
     height: 512px;
     margin-top: 41px;
@@ -226,11 +232,6 @@ input[type='range']::-ms-thumb {
     #player.maxi #playlist li {
       visibility: visible;
       position: relative; }
-      #player.maxi #playlist li.active-audio {
-        background-color: #5483C3;
-        color: #FFFFFF;
-        visibility: visible;
-        position: relative; }
   #player #player-header {
     width: 100%;
     height: 40px;
@@ -293,6 +294,6 @@ input[type='range']::-ms-thumb {
           -webkit-transform: translateY(-3px); }
 
 body {
-  background-color: #3B3B3F; }
+  background-color: #606067; }
 
 /*# sourceMappingURL=application.css.map */

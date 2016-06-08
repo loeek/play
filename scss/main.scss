@@ -10,6 +10,7 @@
 	overflow: hidden;
 	border-radius: $radius;
 	color: $gray;
+	
 	&.minify {
 		height: 185px;
 		#playlist {
@@ -17,19 +18,14 @@
 			margin-top: 41px;
 			overflow-y: hidden;
 			overflow-x: hidden;
+
 			li {
 				visibility: hidden;
 				position: absolute;
-				&:hover,
-				&.active-audio {
-					background-color: $primary;
-					color: $white;
-					visibility: visible;
-					position: relative;
-				}
 			}
 		}
 	}
+
 	#playlist {
 		li {
 			cursor: pointer;
@@ -39,6 +35,21 @@
 				color: $white;
 				visibility: visible;
 				position: relative;
+			}
+			&.disabled-audio,
+			&.disabled-audio:hover {
+				background-color: darken($smoke, 7%)!important;
+				color: lighten($gray, 15%)!important;
+				cursor: not-allowed;
+			}
+			.audio-flag {
+				position: absolute;
+				top: 17px;
+				right: 40px;
+				height: 30px;
+				width: 30px;
+				background:url(../img/repeat.svg) no-repeat;
+
 			}
 		}
 	}
@@ -52,12 +63,6 @@
 			li {
 				visibility: visible;
 				position: relative;
-				&.active-audio {
-					background-color: $primary;
-					color: $white;
-					visibility: visible;
-					position: relative;
-				}
 			}
 		}
 	}
