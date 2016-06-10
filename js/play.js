@@ -50,7 +50,7 @@ var player = (function(){
 	function render (argument) {
 		// render the player frame
 		var list = document.getElementById('player-ctn').innerHTML;
-		document.getElementById('player-ctn').innerHTML = '<div class="maxi" id="player"><div id="player-header"><div id="window-controls"><span class="control-icon" id="minimize"></span><span class="control-icon" id="close"></span></div></div>' + list + '<div id="control-board"><ul class="inline-list" id="controls-top"><li><span class="control-icon" id="repeat"></span></li><li><span class="control-icon" id="previous"></span></li><li><span class="control-icon" id="play"></span></li><li><span class="control-icon" id="next"></span></li><li><span class="control-icon" id="plist"></span></li></ul><ul class="inline-list" id="controls-bottom"><li id="audio-time"><span id="current-time">02:55 /</span><span id="full-time">04:40</span></li><li id="audio-range"><input id="seekslider" type="range" min="0" max="100" value="0" step="1"></li><li id="volume-range"><span class="control-icon" id="volume"></span><input id="volumeslider" type="range" min="0" max="100" value="40" step="1"></li></ul></div></div></div>';
+		document.getElementById('player-ctn').innerHTML = '<div class="maxi" id="player"><div id="player-header"><div id="window-controls"><span class="control-icon" id="minimize"></span><span class="control-icon" id="close"></span></div></div>' + list + '<div id="control-board"><ul class="inline-list" id="controls-top"><li><span class="control-icon" id="repeat"></span></li><li><span class="control-icon" id="previous"></span></li><li><span class="control-icon" id="play"></span></li><li><span class="control-icon" id="next"></span></li><li><span class="control-icon" id="plist"></span></li></ul><ul class="inline-list" id="controls-bottom"><li class="audio-time"><span id="current-time">00:00</span></li><li id="audio-range"><input id="seekslider" type="range" min="0" max="100" value="0" step="1"></li><li class="audio-time"><span id="full-time">00:00</span><li id="volume-range"><span class="control-icon" id="volume"></span><input id="volumeslider" type="range" min="0" max="100" value="40" step="1"></li></ul></div></div></div>';
 		events.emit("domRender");
 	}
 
@@ -93,7 +93,6 @@ var player = (function(){
 	function playPauseAudio() {
 		if (audio.paused) {
 			audio.oncanplaythrough = audio.play();
-			events.emit("audioPlaying", currentTrack.index);
 		} else {
 			audio.pause();
 			events.emit("audioPaused", currentTrack.index);
@@ -133,6 +132,10 @@ var player = (function(){
 	events.on("fileError", removeTrack);
 	events.on("repeatToggled", toggleRepeat);
 	events.on("muteToggled", muteAudio);
+	events.on("volumeChanged", setVolume);
+	events.on("seekSliderUpdated", updateAudio);
+	audio.addEventListener("timeupdate", function(){ seektimeupdate(); });
+
 	// set current track to initialized track
 	function setCurrentTrack(index) {
 		currentTrack = trackList[index];
@@ -151,15 +154,42 @@ var player = (function(){
 			var index = (currentTrack.index === 0) ? trackList.length - 1 : (currentTrack.index - 1);
 			initAudio(index);
 			playPauseAudio();
-			console.log(index);
 		}
+	}
+	function updateAudio(value) {
+		seekto = audio.duration * (value / 100);
+		audio.currentTime = seekto;
+	}
+
+	function setVolume(value){
+	    audio.volume = value;
+    }
+
+	function seektimeupdate(){
+		var nt = audio.currentTime * (100 / audio.duration);
+		events.emit("timeUpdated", nt);
+		var curmins = Math.floor(audio.currentTime / 60);
+		var cursecs = Math.floor(audio.currentTime - curmins * 60);
+		var durmins = Math.floor(audio.duration / 60);
+		var dursecs = Math.floor(audio.duration - durmins * 60);
+		if(cursecs < 10){ cursecs = "0"+cursecs; }
+		if(dursecs < 10){ dursecs = "0"+dursecs; }
+		if(curmins < 10){ curmins = "0"+curmins; }
+		if(durmins < 10){ durmins = "0"+durmins; }
+		current = curmins+":"+cursecs;
+		events.emit("updateChrono", current);
+		duration = durmins+":"+dursecs;
+		events.emit("audioPlaying", duration);
+		if (audio.currentTime === audio.duration) {
+			nextTrack();
+		} 
 	}
 
 })();
 // frame module 
 var frame = (function(){
 	// cache DOM
-	var playlist,members,board,controls,playBtn,prevBtn,nextBtn,repeatBtn,listBtn,mutBtn,seekSlider,volumeSlider,curtimeText,durtimeText;
+	var playlist,members,board,controls,playBtn,prevBtn,nextBtn,seeking=false,seekto,repeatBtn,listBtn,mutBtn,seekSlider,volumeSlider,curtimeText,durtimeText;
 
 	function initFrame() {
 		frame = document.getElementById("player"),
@@ -183,58 +213,106 @@ var frame = (function(){
 	}
 	
 	function listen() {
-		playBtn.addEventListener('click', function () {
+		playBtn.addEventListener('click', function() {
 			events.emit("playToggled");
 			toggleActivity (this);
 		}, false);
 
-		prevBtn.addEventListener('click', function () {
+		prevBtn.addEventListener('click', function() {
 			events.emit("prevPressed");
 			toggleActivity (this);
 		}, false);
 
-		nextBtn.addEventListener('click', function () {
+		nextBtn.addEventListener('click', function() {
 			events.emit("nextPressed");
 			toggleActivity (this);
 		}, false);
 
-		repeatBtn.addEventListener('click', function () {
+		repeatBtn.addEventListener('click', function(event) {
 			events.emit("repeatToggled");
 			toggleActivity (this);
 		}, false);
 
-		listBtn.addEventListener('click', function () {
+		listBtn.addEventListener('click', function() {
 			events.emit("ListViewToggled");
 			toggleActivity (this);
 		}, false);
 
-		muteBtn.addEventListener('click', function () {
+		muteBtn.addEventListener('click', function() {
 			events.emit("muteToggled");
 			toggleActivity (this);
 		}, false);
 
-		closeBtn.addEventListener('click', function () {
+		closeBtn.addEventListener('click', function() {
 			events.emit("closePressed");
 			toggleActivity (this);
 		}, false);
 
-		miniBtn.addEventListener('click', function () {
+		miniBtn.addEventListener('click', function() {
 			events.emit("miniPressed");
-			toggleActivity (this);
+			// toggleActivity (this);
 		}, false);
+
+		// var arr = new Array(6);
+		// arr.forEach.call(members,function(el,i){
+		// 	el.addEventListener('click', function(){alert(i);}, false);
+		// });
+
+		// for (var i = 0; i < members.length; i++) {
+		// 	members[i].addEventListener('click', function() {
+		// 		console.log(i); 
+		// 	});
+		// }
+
+		seekSlider.addEventListener('mousedown', function(event) {
+		 	seeking = true;
+		 	events.emit("seekingOn", event);
+		});
+
+		seekSlider.addEventListener("mousemove", function(event){ 
+			// events.emit("seekingOn", event);
+		});
+
+		seekSlider.addEventListener('mouseup', function(event) {
+		 	seeking = false;
+		});
+
+		volumeSlider.addEventListener("mousemove", function(event) {
+			var volume = volumeSlider.value / 100;
+		 	events.emit("volumeChanged", volume);
+		});
 	}
 
 	events.on("domRender", initFrame);
 	events.on("ListViewToggled", toggleViewMode);
+	events.on("seekingOn", updateSeekSlider);
+	events.on("timeUpdated", updateSeekSlider);
+	events.on("updateChrono", ChronoUpdate);
+	events.on("audioPlaying", durationUpdate);
+
 	// view elements
 	// toggle View Mode
 	function toggleViewMode() {
 		frame.className = (frame.className == 'minify') ? frame.className.replace("minify", "maxi") : frame.className.replace("maxi", "minify");
 	}
-	function toggleActivity (el) {
-	 	el.className = (el.className == "control-icon active") ? el.className.replace("active", " ") : el.className + " active";
-	 	console.log(el.className);
+
+	function toggleActivity(el) {
+	 	el.className = (el.className == "control-icon active") ? el.className.replace("control-icon active", "control-icon") : el.className.replace("control-icon", "control-icon active");
 	}
 
+	function updateSeekSlider(event) {
+		if(seeking && (typeof(event) == "object")){
+			seekSlider.value = event.clientX - seekSlider.offsetLeft;
+			events.emit("seekSliderUpdated", seekSlider.value);
+		} else {
+			seekSlider.value = event;
+		}
+	}
+	function ChronoUpdate(value) {
+		curtimeText.innerHTML = value;
+	}
+	function durationUpdate(value) {
+		durtimeText.innerHTML = value;
+	}
 
 })();

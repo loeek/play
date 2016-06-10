@@ -120,7 +120,11 @@ span.control-icon {
   span.control-icon#volume {
     background: url(../img/volume.svg) no-repeat;
     height: 18px; }
-    span.control-icon#volume.active, span.control-icon#volume:hover {
+    span.control-icon#volume.active {
+      background: url(../img/no-volume.svg) no-repeat; }
+      span.control-icon#volume.active:hover {
+        background: url(../img/no-volume-on.svg) no-repeat; }
+    span.control-icon#volume:hover {
       background: url(../img/volume-on.svg) no-repeat; }
 
 #window-controls {
@@ -223,11 +227,11 @@ input[type='range']::-ms-thumb {
       cursor: not-allowed; }
     #player #playlist li .audio-flag {
       position: absolute;
-      top: 17px;
+      top: 14px;
       right: 40px;
-      height: 30px;
-      width: 30px;
-      background: url(../img/repeat.svg) no-repeat; }
+      height: 36px;
+      width: 36px;
+      background: url(../img/error.svg) no-repeat; }
   #player.maxi #playlist {
     height: 512px;
     margin-top: 41px;
@@ -267,15 +271,16 @@ input[type='range']::-ms-thumb {
       transform: translateX(-20px); }
       #player #control-board #controls-bottom li {
         position: relative; }
-        #player #control-board #controls-bottom li#audio-time {
-          width: 100px; }
+        #player #control-board #controls-bottom li.audio-time {
+          width: 45px; }
         #player #control-board #controls-bottom li#audio-range {
-          width: 220px; }
+          width: 215px; }
         #player #control-board #controls-bottom li#volume-range {
-          width: 140px; }
+          width: 140px;
+          margin-left: 20px; }
         #player #control-board #controls-bottom li span#current-time,
         #player #control-board #controls-bottom li span#full-time {
-          width: 50px;
+          width: 40px;
           display: inline-block;
           float: left; }
         #player #control-board #controls-bottom li span#volume {
@@ -284,18 +289,19 @@ input[type='range']::-ms-thumb {
           display: inline-block; }
         #player #control-board #controls-bottom li #volumeslider {
           width: 100px;
-          float: right;
+          float: left;
+          margin-left: 10px;
           display: inline-block;
           -o-transform: translateY(4px);
           -ms-transform: translateY(4px);
           -moz-transform: translateY(4px);
           -webkit-transform: translateY(4px); }
         #player #control-board #controls-bottom li #seekslider {
-          width: 88%;
-          -o-transform: translateY(-3px);
-          -ms-transform: translateY(-3px);
-          -moz-transform: translateY(-3px);
-          -webkit-transform: translateY(-3px); }
+          width: 93%;
+          -o-transform: translateY(-2px);
+          -ms-transform: translateY(-2px);
+          -moz-transform: translateY(-2px);
+          -webkit-transform: translateY(-2px); }
 
 body {
   background-color: #606067; }

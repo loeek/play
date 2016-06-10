@@ -131,7 +131,12 @@ span.control-icon {
 	&#volume {
 		background:url(../img/volume.svg) no-repeat;
 		height: 18px;
-		&.active,
+		&.active{
+			background:url(../img/no-volume.svg) no-repeat;
+			&:hover {
+				background:url(../img/no-volume-on.svg) no-repeat;
+			}
+		}
 		&:hover {
 			background:url(../img/volume-on.svg) no-repeat;
 		}
