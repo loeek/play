@@ -1,3 +1,4 @@
+'use strict';
 //events (publish subscribe)
 var events = {
 	events: {},
@@ -65,8 +66,8 @@ var player = (function(){
 		var track = trackList[index];
 		audio.src = track.source;
 		audio.loop = false;
-		events.emit("audioInit", index);
 		audio.load();
+		events.emit("audioInit", index);
 		// handle audio errors
 		audio.addEventListener('error',function failed(e) {
 			switch (e.target.error.code) {
@@ -126,6 +127,7 @@ var player = (function(){
 	// fire events emitted
 	events.on('audioInit', setCurrentTrack);
 	events.on("playToggled", playPauseAudio);
+	events.on("trackSet", playPauseAudio);
 	events.on("nextPressed", nextTrack);
 	events.on("prevPressed", previousTrack);
 	events.on("fileError", nextTrack);
@@ -133,12 +135,14 @@ var player = (function(){
 	events.on("repeatToggled", toggleRepeat);
 	events.on("muteToggled", muteAudio);
 	events.on("volumeChanged", setVolume);
+	events.on("trackSelected", initAudio);
 	events.on("seekSliderUpdated", updateAudio);
 	audio.addEventListener("timeupdate", function(){ seektimeupdate(); });
 
 	// set current track to initialized track
 	function setCurrentTrack(index) {
 		currentTrack = trackList[index];
+		events.emit("trackSet",index);
 	}
 	// play next track
 	function nextTrack() {
@@ -176,20 +180,22 @@ var player = (function(){
 		if(dursecs < 10){ dursecs = "0"+dursecs; }
 		if(curmins < 10){ curmins = "0"+curmins; }
 		if(durmins < 10){ durmins = "0"+durmins; }
-		current = curmins+":"+cursecs;
+		var current = curmins+":"+cursecs;
 		events.emit("updateChrono", current);
-		duration = durmins+":"+dursecs;
+		var duration = durmins+":"+dursecs;
 		events.emit("audioPlaying", duration);
 		if (audio.currentTime === audio.duration) {
 			nextTrack();
 		} 
 	}
+	
 
 })();
+
 // frame module 
 var frame = (function(){
 	// cache DOM
-	var playlist,members,board,controls,playBtn,prevBtn,nextBtn,seeking=false,seekto,repeatBtn,listBtn,mutBtn,seekSlider,volumeSlider,curtimeText,durtimeText;
+	var playlist,members,board,controls,closeBtn,miniBtn,playBtn,frame,prevBtn,nextBtn,seeking=false,seekto,repeatBtn,listBtn,muteBtn,seekSlider,volumeSlider,curtimeText,durtimeText;
 
 	function initFrame() {
 		frame = document.getElementById("player"),
@@ -252,18 +258,15 @@ var frame = (function(){
 			events.emit("miniPressed");
 			// toggleActivity (this);
 		}, false);
-
-		// var arr = new Array(6);
-		// arr.forEach.call(members,function(el,i){
-		// 	el.addEventListener('click', function(){alert(i);}, false);
-		// });
-
-		// for (var i = 0; i < members.length; i++) {
-		// 	members[i].addEventListener('click', function() {
-		// 		console.log(i); 
-		// 	});
-		// }
-
+		
+		for (var i = 0; i < members.length; i++) {
+				members[i].addEventListener('click', function(){
+				var parent = this.parentNode;
+				var index = Array.prototype.indexOf.call(parent.children, this);
+				events.emit("trackSelected", index);
+			});
+		}
+		
 		seekSlider.addEventListener('mousedown', function(event) {
 		 	seeking = true;
 		 	events.emit("seekingOn", event);
