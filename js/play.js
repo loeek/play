@@ -1,4 +1,5 @@
 'use strict';
+
 //events (publish subscribe)
 var events = {
 	events: {},
@@ -63,6 +64,7 @@ var player = (function(){
 	};
 	// initialize audio track
 	function initAudio(index) {
+		index = (index < trackList.length)? index : 0;
 		var track = trackList[index];
 		audio.src = track.source;
 		audio.loop = false;
@@ -149,7 +151,6 @@ var player = (function(){
 		if(typeof(currentTrack) != 'undefined'){
 			var index = (currentTrack.index + 1 < trackList.length) ? currentTrack.index + 1 : 0;
 			initAudio(index);
-			playPauseAudio();
 		}  
 	}
 	// play previous track
@@ -157,7 +158,6 @@ var player = (function(){
 		if(typeof(currentTrack) != 'undefined'){
 			var index = (currentTrack.index === 0) ? trackList.length - 1 : (currentTrack.index - 1);
 			initAudio(index);
-			playPauseAudio();
 		}
 	}
 	function updateAudio(value) {
